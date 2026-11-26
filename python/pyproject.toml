@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pico-emu-test"
+version = "0.1.0"
+description = "Run MicroPython firmware for the Raspberry Pi Pico in an emulator from Python tests (wrapper around the pico-emu-test command line tool)."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+
+[tool.setuptools]
+py-modules = ["pico_emu_test"]
