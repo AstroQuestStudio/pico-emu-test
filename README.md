@@ -304,7 +304,7 @@ official MicroPython v1.29.0 images (`RPI_PICO` and `RPI_PICO_W`, 2026-08-24) on
 
 ### Speed
 
-Measured with `node scripts/bench.mjs` on a Windows 11 laptop (AMD Ryzen 7 5800H, Node.js 26.13), two
+Measured with `node scripts/bench.mjs` on a Windows 11 laptop (8-core AMD Ryzen 7, Node.js 26.13), two
 runs about an hour apart:
 
 | What | Emulated | Wall clock | Ratio |
