@@ -1,0 +1,7 @@
+node_modules/
+.cache/
+*.uf2
+*.img
+__pycache__/
+.pytest_cache/
+*.egg-info/

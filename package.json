@@ -1,0 +1,49 @@
+{
+  "name": "pico-emu-test",
+  "version": "0.1.0",
+  "description": "Boot a MicroPython firmware for the Raspberry Pi Pico in an emulator on your PC, drive it over the serial console, fake its peripherals and run automatic tests, no board needed.",
+  "keywords": [
+    "raspberry-pi-pico",
+    "rp2040",
+    "micropython",
+    "emulator",
+    "testing",
+    "ci",
+    "rp2040js"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AstroQuestStudio/pico-emu-test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AstroQuestStudio/pico-emu-test/issues"
+  },
+  "author": "AstroQuestStudio",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "bin": {
+    "pico-emu-test": "./bin/pico-emu-test.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "python",
+    "examples",
+    "NOTICE.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "fetch": "node bin/pico-emu-test.js fetch",
+    "test": "node --test \"test/*.test.js\"",
+    "examples": "node --test \"examples/*.test.js\""
+  },
+  "dependencies": {
+    "rp2040js": "1.4.2"
+  }
+}
