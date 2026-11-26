@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: npm ci
+
+      # The boot ROM and the official MicroPython images are downloaded, verified against the
+      # SHA-256 digests pinned in src/assets.js, and cached between runs.
+      - name: Cache downloaded firmware
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pico-emu-test
+          key: pico-emu-test-assets-${{ hashFiles('src/assets.js') }}
+
+      - name: Download the boot ROM and the official firmware
+        run: npm run fetch
+
+      - run: python -m pip install pytest littlefs-python
+
+      - name: Build a LittleFS image for the flash-image test
+        run: python examples/make_lfs_image.py test/fixtures/lfs "$RUNNER_TEMP/fs.img"
+
+      - name: Library and CLI tests
+        run: npm test
+        env:
+          PICO_TEST_LFS_IMAGE: ${{ runner.temp }}/fs.img
+
+      - name: Example tests (JavaScript)
+        run: npm run examples
+
+      - name: Example tests (pytest)
+        run: python -m pytest examples/pytest
+
+      - name: Command line smoke test
+        run: node bin/pico-emu-test.js pico --exec "print(1 + 1)" --expect 2
